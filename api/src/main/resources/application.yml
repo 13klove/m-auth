@@ -1,5 +1,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb://mongo:mongo1234@localhost:27017/mongo
       database: mongo

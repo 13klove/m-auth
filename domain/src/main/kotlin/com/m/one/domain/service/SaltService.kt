@@ -1,5 +1,6 @@
 package com.m.one.domain.service
 
+import com.m.one.domain.exception.AlreadyUserException
 import com.m.one.domain.model.Salt
 import com.m.one.domain.repository.SaltRepository
 import com.m.one.message.SaltResponse
@@ -14,13 +15,22 @@ class SaltService(
     private val saltRepository: SaltRepository
 ) {
 
-    companion object: KLogging()
+    companion object: KLogging() {
+        const val ERROR_MSG = "already user"
+    }
 
     @Transactional
     fun insert(email: String): Mono<SaltResponse> {
-        val salt = Salt.create(email, UUID.randomUUID().toString())
-        return saltRepository.save(salt)
-            .map(Salt::toSaltResponse)
+        return saltRepository.findByEmail(email)
+            .flatMap<SaltResponse?> {
+                Mono.error(AlreadyUserException(ERROR_MSG))
+            }.switchIfEmpty(
+                Mono.defer {
+                    val salt = Salt.create(email, UUID.randomUUID().toString())
+                    saltRepository.save(salt)
+                        .map(Salt::toSaltResponse)
+                }
+            )
     }
 
 }
