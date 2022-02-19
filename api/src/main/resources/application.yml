@@ -3,3 +3,11 @@ spring:
     mongodb:
       uri: mongodb://mongo:mongo1234@localhost:27017/mongo
       database: mongo
+
+server:
+  port: 8081
+
+token:
+  expired:
+    base: 86400000
+    refresh: 87000000

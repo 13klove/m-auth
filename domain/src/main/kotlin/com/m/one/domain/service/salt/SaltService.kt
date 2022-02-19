@@ -1,9 +1,9 @@
-package com.m.one.domain.service
+package com.m.one.domain.service.salt
 
 import com.m.one.domain.exception.AlreadyUserException
-import com.m.one.domain.model.Salt
+import com.m.one.domain.model.salt.Salt
 import com.m.one.domain.repository.SaltRepository
-import com.m.one.message.SaltResponse
+import com.m.one.message.salt.SaltResponse
 import mu.KLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -20,13 +20,13 @@ class SaltService(
     }
 
     @Transactional
-    fun insert(email: String): Mono<SaltResponse> {
-        return saltRepository.findByEmail(email)
+    fun insert(userId: Long): Mono<SaltResponse> {
+        return saltRepository.findByUserIdAndDeletedAtIsNull(userId)
             .flatMap<SaltResponse?> {
                 Mono.error(AlreadyUserException(ERROR_MSG))
             }.switchIfEmpty(
                 Mono.defer {
-                    val salt = Salt.create(email, UUID.randomUUID().toString())
+                    val salt = Salt.create(userId, UUID.randomUUID().toString())
                     saltRepository.save(salt)
                         .map(Salt::toSaltResponse)
                 }

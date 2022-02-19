@@ -9,6 +9,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.github.microutils:kotlin-logging-jvm:2.0.6")
+    implementation("org.glassfish.jaxb:jaxb-runtime:2.3.2")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

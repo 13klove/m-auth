@@ -1,14 +1,10 @@
 package com.m.one.domain.salt
 
 import com.m.one.domain.exception.AlreadyUserException
-import com.m.one.domain.model.Salt
-import com.m.one.domain.repository.SaltRepository
-import com.m.one.domain.service.SaltService
-import com.m.one.message.SaltResponse
+import com.m.one.domain.service.salt.SaltService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
 
