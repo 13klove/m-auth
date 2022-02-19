@@ -16,6 +16,7 @@ allprojects {
 
     group = "com.m.one"
     version = "0.0.1-SNAPSHOT"
+    extra["springCloudVersion"] = "2020.0.5"
     //java.sourceCompatibility = JavaVersion.VERSION_11
 
     tasks.withType<JavaCompile> {
@@ -47,6 +48,12 @@ subprojects {
         plugin("kotlin-jpa")
         plugin("org.springframework.boot")
         plugin("io.spring.dependency-management")
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        }
     }
 
 }
