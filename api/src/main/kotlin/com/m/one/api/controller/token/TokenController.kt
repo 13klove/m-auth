@@ -21,14 +21,6 @@ class TokenController(
         const val USER_ID_KEY = "X-USER-ID"
     }
 
-    @PostMapping("/revoke")
-    fun revoke(
-        @RequestHeader(AUTHORIZATION_KEY) token: String,
-        @RequestHeader(USER_ID_KEY) userId: Long,
-    ): Mono<TokenDetailMessage> {
-        return tokenService.revoke(userId, token, BASE)
-    }
-
     @PostMapping
     fun getToken(
         @RequestHeader(AUTHORIZATION_KEY) token: String,

@@ -28,8 +28,4 @@ class Salt(
         return SaltResponse(id!!, salt)
     }
 
-    fun toSaltMessage(): SaltMessage {
-        return SaltMessage(salt)
-    }
-
 }
